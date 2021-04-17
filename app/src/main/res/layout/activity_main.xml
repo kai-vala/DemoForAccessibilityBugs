@@ -24,79 +24,24 @@
             android:layout_height="wrap_content"
             android:minWidth="44dp"
             android:minHeight="44dp"
-            android:text="Some title"
+            android:text="Remember to enable Talkback"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title_text"
-            app:tabGravity="fill"
-            app:tabIndex="@={vm.tabIndex}"
-            app:tabMode="fixed">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tab1" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tab2" />
-        </com.google.android.material.tabs.TabLayout>
-
-        <!-- VISIBLE when Tab1 is selected, GONE when Tab2 is selected -->
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/editText1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Edit text 1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tabs"
-            app:visible="@{vm.tabIndex == 0}" />
-
-        <!-- VISIBLE when Tab2 is selected, GONE when Tab1 is selected -->
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/editText2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Edit text 2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editText1"
-            app:layout_constraintBottom_toTopOf="@id/bottom_text1"
-            app:visible="@{vm.tabIndex == 1}" />
-
-        <TextView
-            android:id="@+id/bottom_text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12.5dp"
-            android:text="Above text boxes are not enabled correctly \nWhen tabs are switched with Talkback enabled"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editText2" />
-
-        <!-- Simple button toggle for these text boxes -->
+        <!-- See MainActivity.kt where the transition is started -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/toggleButton"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
-            android:onClick="@{() -> vm.toggleButtonState()}"
-            android:text="Toggle other text boxes"
+            android:text="Transition between text boxes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bottom_text1" />
+            app:layout_constraintTop_toBottomOf="@id/title_text" />
 
-        <!--- Add some margin to one of them so it easier to notice the box change -->
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/editTextByButton1"
             android:layout_width="match_parent"
@@ -111,6 +56,7 @@
             android:id="@+id/editTextByButton2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12.5dp"
             android:text="Edit text other 2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editTextByButton1"
@@ -121,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12.5dp"
-            android:text="These are enabled correctly \nWhen the button is tapped with Talkback enabled\n(Tab edit texts also become selectable after button tap)"
+            android:text="Above text boxes are not enabled correctly \nWhen transitions are used with Talkback enabled"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editTextByButton2" />
