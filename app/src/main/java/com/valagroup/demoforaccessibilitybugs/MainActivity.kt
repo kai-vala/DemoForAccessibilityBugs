@@ -5,15 +5,17 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
-import androidx.transition.TransitionManager
 import com.valagroup.demoforaccessibilitybugs.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding =
@@ -24,14 +26,17 @@ class MainActivity : AppCompatActivity() {
         binding.toggleButton.setOnClickListener { v ->
             if (v != null) {
                 Log.d("OnClick", "toggleButton")
-                val viewModel = binding.vm as MainViewModel
-                viewModel.toggleButtonState()
-                binding.toggleButton.findParent<ConstraintLayout>()?.let {
-                    // TODO/FIXME: The issue where edit texts are not enabled is caused by the transition
-                    TransitionManager.beginDelayedTransition(it)
-                }
+                showFragment(MainFragment())
             }
         }
+    }
+
+    private fun showFragment(fragment: Fragment, addToBackStack: Boolean = true) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.modal_container, fragment, fragment::class.java.name)
+            .also { if (addToBackStack) it.addToBackStack(fragment::class.java.name) }
+            .commitAllowingStateLoss()
     }
 }
 
