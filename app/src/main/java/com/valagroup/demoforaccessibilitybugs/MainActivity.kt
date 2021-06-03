@@ -20,13 +20,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.vm = ViewModelProvider(this).get(MainViewModel::class.java)
+        //binding.vm = ViewModelProvider(this).get(MainViewModel::class.java)
         binding.lifecycleOwner = this
 
         binding.toggleButton.setOnClickListener { v ->
             if (v != null) {
                 Log.d("OnClick", "toggleButton")
-                showFragment(MainFragment())
+                showFragment(MainFragment<String>())
             }
         }
     }
