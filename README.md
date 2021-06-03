@@ -1,4 +1,4 @@
-# Demo for an Accessibility/Talkback bug when transitions are used in Android
+# Demo for an Accessibility/Talkback bugs in Android
 
 NOTE: Enabled Talkback on your device
 
