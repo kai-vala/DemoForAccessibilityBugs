@@ -2,11 +2,9 @@
 
 NOTE: Enabled Talkback on your device
 
-This is a demo for an issue where Views are not selectable with Talkback after a transition occurs.
+This is a demo for an issue where the user has enabled 'Heading navigation' and opens a new Fragment.
 
-If we remove this line, the views that are made visible will be selectable with Talkback enabled:
-
-`TransitionManager.beginDelayedTransition(it)`
+In the new Fragment the user can no longer navigate via 'Swipe right' and 'Swipe left', Talkback will simply announce 'no next heading'.
 
 ---
 
@@ -14,17 +12,10 @@ If we remove this line, the views that are made visible will be selectable with 
 
 1. Fresh start the app
 
-2. Tap the button to perform transition
+2. Enable 'Heading navigation mode' in Talkback if needed
 
-3. Try to select 'Edit text 2' view, notice it cannot be clicked (swipe navigation with Talkback will also bypass it)
+3. Try to navigate via swipe right / swipe left in the initial view, this will work.
 
----
+4. Click 'Open a new fragment'
 
-Example of the issue in practice (this gif is from a slightly more complex version of the code):
-
-![Example of view not selectable](/images/animation.gif?raw=true)
-
----
-
-See `MainActivity.kt`, the `MainViewModel` doesn't really hold anything relevant for this example.
-
+5. Try to navigate via swipe right / swipe left, this will no longer work. Talkback will simply announce 'no next heading'.

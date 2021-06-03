@@ -11,49 +11,86 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?android:attr/windowBackground"
+        android:fitsSystemWindows="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="12.5dp"
-            android:layout_marginTop="12.5dp"
-            android:layout_marginEnd="12.5dp"
-            android:layout_marginBottom="12.5dp"
+            android:layout_margin="12.5dp"
             tools:context=".MainActivity">
 
             <TextView
-                android:id="@+id/title_text"
+                android:id="@+id/titleText"
+                style="@android:style/TextAppearance.Material.Headline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="44dp"
-                android:minHeight="44dp"
-                android:text="Demo"
+                android:text="Accessibility demo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- See MainActivity.kt where the transition is started -->
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/toggleButton"
+            <TextView
+                android:id="@+id/heading1"
+                style="@android:style/TextAppearance.Material.Headline"
+                android:accessibilityHeading="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="Heading 1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titleText" />
+
+            <TextView
+                android:id="@+id/heading2"
+                style="@android:style/TextAppearance.Material.Headline"
+                android:accessibilityHeading="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="Heading 2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/heading1" />
+
+            <TextView
+                android:id="@+id/heading3"
+                style="@android:style/TextAppearance.Material.Headline"
+                android:accessibilityHeading="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="Heading 3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/heading2" />
+
+            <Button
+                android:id="@+id/openButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="44dp"
-                android:text="Do stuff"
+                android:text="Open a new fragment"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title_text" />
+                app:layout_constraintTop_toBottomOf="@id/heading3" />
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/editTextByButton1"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/infoText"
+                style="@android:style/TextAppearance.Material.Body1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12.5dp"
-                android:text="@{vm.text}"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:text="Enabled 'Heading' navigation with Talkback\nNavigating headings works normally in this view\nThen open the fragment and swipe Right or Left"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toggleButton"
-                app:visible="@{vm.buttonState == true}" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/openButton" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <FrameLayout

@@ -1,33 +1,41 @@
 package com.valagroup.demoforaccessibilitybugs
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
+import android.util.AttributeSet
 import android.view.View
-import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.ViewModelProvider
 import com.valagroup.demoforaccessibilitybugs.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
+    private val vm: MainViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityMainBinding =
-            DataBindingUtil.setContentView(this, R.layout.activity_main)
-        //binding.vm = ViewModelProvider(this).get(MainViewModel::class.java)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
 
-        binding.toggleButton.setOnClickListener { v ->
+        binding.openButton.setOnClickListener { v ->
             if (v != null) {
-                Log.d("OnClick", "toggleButton")
-                showFragment(MainFragment<String>())
+                showFragment(MainFragment())
             }
+        }
+    }
+
+    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+        return super.onCreateView(name, context, attrs).also {
+            vm.fragmentCount.observe(this, {
+                if (it > 0) {
+                    binding.container.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS
+                } else {
+                    binding.container.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_AUTO
+                }
+            })
         }
     }
 
@@ -38,20 +46,4 @@ class MainActivity : AppCompatActivity() {
             .also { if (addToBackStack) it.addToBackStack(fragment::class.java.name) }
             .commitAllowingStateLoss()
     }
-}
-
-@BindingAdapter("visible")
-fun visible(view: View, visible: Boolean?) {
-    Log.d("BindingAdapter", "Changing visibility of view '${view.id}' to: $visible")
-    view.visibility = if (visible == true) View.VISIBLE else View.GONE
-}
-
-private inline fun <reified T : ViewGroup> View.findParent(): T? {
-    var view = this.parent
-    while (view != null) {
-        if (view is T)
-            return view
-        view = view.parent
-    }
-    return null
 }
