@@ -1,6 +1,6 @@
-# Demo for an Accessibility/Talkback bug when transitions are used in Android
+# Demo for an Accessibility/Talkback bugs in Android
 
-NOTE: Enabled Talkback on your device
+NOTE: Enable Talkback AND 'heading navigation mode' on your device for this demo.
 
 This is a demo for an issue where the user has enabled 'Heading navigation' and opens a new Fragment.
 
