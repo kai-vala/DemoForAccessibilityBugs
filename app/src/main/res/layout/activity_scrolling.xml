@@ -7,28 +7,32 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:tag="root_coordinator"
+        android:id="@+id/rootCoordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         tools:context=".ScrollingActivity">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:tag="app_bar"
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/app_bar_height"
             android:fitsSystemWindows="true"
+            android:layout_height="@dimen/app_bar_height"
             android:theme="@style/Theme.ScrollTest.AppBarOverlay">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:tag="toolbar_layout"
                 android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:toolbarId="@+id/toolbar">
 
                 <androidx.appcompat.widget.Toolbar
+                    android:tag="toolbar"
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
@@ -39,6 +43,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:tag="fab_button"
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,138 +52,223 @@
             app:layout_anchorGravity="bottom|end"
             app:srcCompat="@android:drawable/ic_dialog_email" />
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:tag="swipe_refresh"
+            android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_height="wrap_content"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-            <LinearLayout
+            <androidx.core.widget.NestedScrollView
+                android:tag="nested_scroll"
+                android:id="@+id/nestedScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:accessibilityHeading="true"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@string/text_heading1" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:tag="layout_inside_scrollview"
+                    android:id="@+id/layout_inside_scrollview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@string/text_body1" />
+                    <TextView
+                        android:tag="heading1"
+                        android:id="@+id/heading1"
+                        android:focusable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:accessibilityHeading="true"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="@string/text_heading1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
 
-                <TextView
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:accessibilityHeading="true"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@string/text_heading2" />
+                    <TextView
+                        android:tag="body1"
+                        android:id="@+id/body1"
+                        android:focusable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="@string/text_body1"
+                        app:layout_constraintTop_toBottomOf="@id/heading1"
+                        app:layout_constraintStart_toStartOf="parent" />
 
-                <TextView
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@string/text_body2" />
+                    <TextView
+                        android:tag="heading2"
+                        android:id="@+id/heading2"
+                        android:focusable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:accessibilityHeading="true"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="@string/text_heading2"
+                        app:layout_constraintTop_toBottomOf="@id/body1"
+                        app:layout_constraintStart_toStartOf="parent" />
 
-                <TextView
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:accessibilityHeading="true"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@string/text_heading3" />
+                    <TextView
+                        android:tag="body2"
+                        android:id="@+id/body2"
+                        android:focusable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="@string/text_body2"
+                        app:layout_constraintTop_toBottomOf="@id/heading2"
+                        app:layout_constraintStart_toStartOf="parent"/>
 
-                <TextView
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@string/text_body3" />
+                    <TextView
+                        android:tag="heading3"
+                        android:id="@+id/heading3"
+                        android:focusable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:accessibilityHeading="true"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="@string/text_heading3"
+                        app:layout_constraintTop_toBottomOf="@id/body2"
+                        app:layout_constraintStart_toStartOf="parent"/>
 
-                <TextView
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:accessibilityHeading="true"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@string/text_heading4" />
+                    <TextView
+                        android:tag="body3"
+                        android:id="@+id/body3"
+                        android:focusable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="@string/text_body3"
+                        app:layout_constraintTop_toBottomOf="@id/heading3"
+                        app:layout_constraintStart_toStartOf="parent"/>
 
-                <TextView
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@string/text_body4" />
+                    <TextView
+                        android:tag="heading4"
+                        android:id="@+id/heading4"
+                        android:focusable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:accessibilityHeading="true"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="@string/text_heading4"
+                        app:layout_constraintTop_toBottomOf="@id/body3"
+                        app:layout_constraintStart_toStartOf="parent"/>
 
-                <TextView
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:accessibilityHeading="true"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@string/text_heading5" />
+                    <TextView
+                        android:tag="body4"
+                        android:id="@+id/body4"
+                        android:focusable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="@string/text_body4"
+                        app:layout_constraintTop_toBottomOf="@id/heading4"
+                        app:layout_constraintStart_toStartOf="parent"/>
 
-                <TextView
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@string/text_body5" />
+                    <TextView
+                        android:tag="heading5"
+                        android:id="@+id/heading5"
+                        android:focusable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:accessibilityHeading="true"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="@string/text_heading5"
+                        app:layout_constraintTop_toBottomOf="@id/body4"
+                        app:layout_constraintStart_toStartOf="parent"/>
 
-                <TextView
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:accessibilityHeading="true"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@string/text_heading6" />
+                    <TextView
+                        android:tag="body5"
+                        android:id="@+id/body5"
+                        android:focusable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="@string/text_body5"
+                        app:layout_constraintTop_toBottomOf="@id/heading5"
+                        app:layout_constraintStart_toStartOf="parent"/>
 
-                <TextView
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@string/text_body6" />
+                    <TextView
+                        android:tag="heading6"
+                        android:id="@+id/heading6"
+                        android:focusable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:accessibilityHeading="true"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="@string/text_heading6"
+                        app:layout_constraintTop_toBottomOf="@id/body5"
+                        app:layout_constraintStart_toStartOf="parent" />
 
-                <TextView
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:accessibilityHeading="true"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@string/text_heading7" />
+                    <TextView
+                        android:tag="body6"
+                        android:id="@+id/body6"
+                        android:focusable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="@string/text_body6"
+                        app:layout_constraintTop_toBottomOf="@id/heading6"
+                        app:layout_constraintStart_toStartOf="parent"/>
 
-                <TextView
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@string/text_body7" />
+                    <TextView
+                        android:tag="heading7"
+                        android:id="@+id/heading7"
+                        android:focusable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:accessibilityHeading="true"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="@string/text_heading7"
+                        app:layout_constraintTop_toBottomOf="@id/body6"
+                        app:layout_constraintStart_toStartOf="parent"/>
 
-                <TextView
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:accessibilityHeading="true"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@string/text_heading8" />
+                    <TextView
+                        android:tag="body7"
+                        android:id="@+id/body7"
+                        android:focusable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="@string/text_body7"
+                        app:layout_constraintTop_toBottomOf="@id/heading7"
+                        app:layout_constraintStart_toStartOf="parent"/>
 
-                <TextView
-                    android:focusable="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
-                    android:text="@string/text_body8" />
+                    <TextView
+                        android:tag="heading8"
+                        android:id="@+id/heading8"
+                        android:focusable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:accessibilityHeading="true"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="@string/text_heading8"
+                        app:layout_constraintTop_toBottomOf="@id/body7"
+                        app:layout_constraintStart_toStartOf="parent"/>
 
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+                    <TextView
+                        android:tag="body8"
+                        android:id="@+id/body8"
+                        android:focusable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_margin"
+                        android:text="@string/text_body8"
+                        app:layout_constraintTop_toBottomOf="@id/heading8"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <View
+                        android:id="@+id/scroll_view_bottom_padding"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:focusable="false"
+                        app:layout_constraintTop_toBottomOf="@id/body8"
+                        app:layout_constraintStart_toStartOf="parent">
+                    </View>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
