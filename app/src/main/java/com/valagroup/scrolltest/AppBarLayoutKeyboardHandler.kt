@@ -1,6 +1,7 @@
 package com.valagroup.scrolltest
 
 import android.view.KeyEvent
+import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.appbar.AppBarLayout
@@ -22,7 +23,7 @@ class AppBarLayoutKeyboardHandler(
     private var navigationUpCount = 0
 
     fun handleKeyEvent(event: KeyEvent) {
-        if (scrollBehaviourViewGroup.findFocus() == null) {
+        if (!scrollBehaviourViewGroup.hasFocusAnywhere()) {
             return
         }
         if (event.shouldHandleNavigationDown()) {
@@ -94,4 +95,23 @@ private fun KeyEvent.shouldHandleNavigationDown(): Boolean {
 private fun KeyEvent.shouldHandleNavigationUp(): Boolean {
     return action == KeyEvent.ACTION_DOWN
             && (keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_PAGE_UP)
+}
+
+/**
+ * When I tested [ViewGroup.hasFocus] etc, they did not seem to work
+ * in all cases, so we need to loop through the layout ourselves.
+ */
+fun View.hasFocusAnywhere(): Boolean {
+    val view = this
+    if (view.isFocused || view.hasFocus()) {
+        return true
+    }
+    if (view is ViewGroup) {
+        for (i in 0 until view.childCount) {
+            if (view.getChildAt(i).hasFocusAnywhere()) {
+                return true
+            }
+        }
+    }
+    return false
 }
